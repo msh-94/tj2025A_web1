@@ -11,9 +11,12 @@
 	5. Gradle DSL : Groovy 
 	[생성]
 3. Gradle 프로젝트 폴더구조
-	.src폴더
+    .idea폴더             : 인텔리제이 세팅파일
+	.src폴더              : (개발자가 작성한) 코드 파일
 	-> main폴더
-	-> -> java폴더		
+	-> -> java폴더        : 백앤드 위주 파일
+	-> -> resources폴더   : 프론트앤드 , 부가파일 등등
+	build.gradle 파일     : 프로젝트내 라이브러리(남이만든코드들) 세팅 파일
 
 4. https://start.spring.io/
     1. project : Gradle - Groovy
