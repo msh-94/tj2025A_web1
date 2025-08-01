@@ -42,6 +42,7 @@ public class BoardController {// class start
     }// func end
 
     @DeleteMapping("/board")
+    // http://localhost:8080/board/detail?bno=1
     public boolean boardDelete(int bno){
         System.out.println("BoardController.boardDelete");
         System.out.println("bno = " + bno);
