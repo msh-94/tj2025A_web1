@@ -17,5 +17,22 @@ const func1 = () => {
 
     console.log('[3] fetch 후')
     // 코드 실행 예측 : [1] -> [2] -> [3] , 결과 : [1] -> [3] -> [2]
-}
+}// func end
 // 선언적함수 : function func1(){}
+
+// (2) 동기 fetch
+const func2 = async () => {
+
+    console.log( '[1] fetch 전' );
+
+    // (fetch)
+    const option = { method : "GET" }
+    try{
+        const response = await fetch("/day06/exam1" , option)
+        const data = await response.json();
+        console.log(data);
+    }catch( error ){ console.log( error ) } // catch end
+    console.log( '[2] fetch 통신 결과' );
+
+    console.log( '[3] fetch 후' );
+}// func end
