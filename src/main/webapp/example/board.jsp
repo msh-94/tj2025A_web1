@@ -12,8 +12,10 @@
 <body>
     <!-- 헤더 파일 -->
     <jsp:include page="/example/header.jsp"></jsp:include>
-    <!-- 본문 -->    
+    <!-- 본문 -->
+    <div>
     <h3> 게시판 목록 </h3>
+    </div>
     <!-- 푸터 파일 -->
     <jsp:include page="/example/footer.jsp"></jsp:include>
 </body>
