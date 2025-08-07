@@ -16,7 +16,7 @@ import lombok.*;
 @Getter // 모든 멤버변수에 대해서 getter 메소드 *
 @Setter // 모든 멤버변수에 대해서 setter 메소드 * 생략시 VO
 @ToString // 객체 조회시 주소값 대신에 모든 멤버변수를 문자열로 출력하는 메소드
-public class StrudentDto {// class start
+public class StudentDto {// class start
     // 1. 멤버변수
     private int sno;        // 번호
     private String sname;   // 이름
