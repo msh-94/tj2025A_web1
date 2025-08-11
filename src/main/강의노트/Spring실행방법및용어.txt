@@ -44,3 +44,17 @@ public class AppStart {// class start
 [ 코드 ] : 명령어
 [ 라이브러리 ] : 명령어들을 집합(메소드)해서 .jar 확장자로 만든 집합 , 미리 만들어진 코드 , 예] 도구
 [ 프레임워크 ] : 라이브러리 + 개발에 필요한 환경설정 까지 , 예] 개발 틀 제공
+
+[ MVC패턴 세팅 ]
+    1. AppStart : @SpringBootApplication
+            * SpringApplication.run(AppStart.class);
+    2. Controller :
+        1) @RestController
+        2) @RequestMapping("URL")
+    3. Dao : @Getter ( 싱글톤 대신 )
+    4. Dto :
+        1) @NoArgsConstructor   : 빈생성자
+        2) @AllArgsConstructor  : 풀생성자
+        3) @Getter              : getter
+        4) @Setter              : setter
+        5) @ToString            : toString()
