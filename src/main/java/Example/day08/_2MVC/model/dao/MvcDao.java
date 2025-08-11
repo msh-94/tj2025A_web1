@@ -2,7 +2,6 @@ package Example.day08._2MVC.model.dao; // 패키지명
 
 import org.springframework.stereotype.Repository;
 
-import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
