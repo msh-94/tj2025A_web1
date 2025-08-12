@@ -9,8 +9,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>    
 </head>
 <body>
-    <div>
-        <p>HRDKOREA Copylight 2015 All 글씨가 안보이는 관계로 KOREA </p>
+    <div style="background-color: blue; height: 100px; text-align: center;">
+        <p style="color: white; margin: 0 auto; padding-top: 35px; ">HRDKOREA Copyright&copy; 2015 All rigthts reserved. Human Resources Development Service of KOREA </p>
     </div>
 </body>
 </html>
