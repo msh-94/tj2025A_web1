@@ -11,6 +11,7 @@
     <jsp:include page="/board/header.jsp"></jsp:include>
     <div>
         <h3> 게시판 조회 페이지 </h3>
+        <a href="/board/write.jsp"> 글쓰기 </a>
         <table border="1">
             <thead>
                 <tr>
