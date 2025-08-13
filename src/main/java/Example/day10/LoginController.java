@@ -35,10 +35,27 @@ public class LoginController { // class start
         HttpSession session = request.getSession();
         // 2. 세션 정보내 원하는 속성명 값 꺼내기 , 개발자 의도와 상관없이 값은 무조건 Object 타입
         Object object = session.getAttribute("loginMno");
-            if (object == null) return false; // 비로그인 상태
+            if (object == null) {
+                System.out.println("[ 비로그인 상태 ]");
+                return false; // 비로그인 상태
+            }
         // 3. 타입변환 필요
         int loginMno = (int)object; // 서버톰캣(스프링) 를 재시작 하면 모든 세션정보 초기화
+        System.out.println("[ 로그인 상태 ]"); // 로그인 상태
         System.out.println(loginMno);
+        return true;
+    }// func end
+
+    // 3. 로그아웃 : 세션정보내 속성 제거하기
+    @GetMapping("/logout")
+    public boolean logout( HttpServletRequest request){
+        // 1. 요청 서블릿에서 세션정보 꺼내기
+        HttpSession session = request.getSession();
+        // 2. 특정한 속성 제거하기
+        session.removeAttribute("loginMno");
+        // 2. 전체 세션 제거하기
+        // session.invalidate();
+        System.out.println("[ 로그아웃 ]");
         return true;
     }// func end
 
