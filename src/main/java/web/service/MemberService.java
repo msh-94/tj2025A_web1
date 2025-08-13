@@ -17,10 +17,7 @@ public class MemberService { // class start
     // 회원가입 기능
     public int signUp(MemberDto dto){
         int result = memberDao.signUp(dto);
-        if (result >= 1){
-            return result;
-        }// if end
-        return 0;
+        return result;
     }// func end
 
 }// class end
