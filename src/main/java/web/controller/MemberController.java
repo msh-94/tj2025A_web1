@@ -35,7 +35,7 @@ public class MemberController { // class start
         return result;
     }// func end
 
-    // 로그아웃 기능
+    // 로그아웃 기능 , 세션은 서버를 재시작 하면 초기화
     @GetMapping("/logout")
     public boolean logout(HttpServletRequest request){
         HttpSession session = request.getSession();
