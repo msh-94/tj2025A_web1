@@ -6,6 +6,8 @@ import web.model.dto.MemberDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class MemberDao extends Dao { // class start
@@ -45,6 +47,78 @@ public class MemberDao extends Dao { // class start
             }// if end
         } catch (Exception e) { System.out.println(e); }
         return 0;
+    }// func end
+
+    // 내정보 조회 기능
+    public MemberDto info(int mno){
+        try{
+            String sql = "select * from member where mno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,mno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                MemberDto dto = new MemberDto();
+                dto.setMno(rs.getInt("mno"));
+                dto.setMid(rs.getString("mid"));
+                dto.setMname(rs.getString("mname"));
+                dto.setMphone(rs.getString("mphone"));
+                dto.setMdate(rs.getString("mdate"));
+                return dto;
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return null;
+    }// func end
+
+    // 특정한 필드/열/컬럼 의 값 중복/존재 확인
+    public boolean check(String type , String data){
+        try{
+            String sql = "select * from member where "+type+" = ?"; // 속성명은 ? 안되서 +연산자로 넣어준다
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,data);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return true;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 회원정보 수정 기능
+    public boolean update(MemberDto dto){
+        try{
+            String sql = "update member set mname = ? , mphone = ? where mno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getMname());
+            ps.setString(2,dto.getMphone());
+            ps.setInt(3,dto.getMno());
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 비밀번호 수정 기능
+    public boolean updatePassword(Map<String,String> map , int mno){
+        try{
+            String sql = "update member set mpwd = ? where mpwd = ? and mno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,map.get("newPwd"));
+            ps.setString(2,map.get("oldPwd"));
+            ps.setInt(3,mno);
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 회원탈퇴 기능
+    public boolean delete(int mno){
+        try{
+            String sql = "delete from member where mno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,mno);
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
     }// func end
 
 }// class end

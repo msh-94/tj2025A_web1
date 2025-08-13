@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
 import web.service.MemberService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/member")
 public class MemberController { // class start
@@ -45,6 +47,63 @@ public class MemberController { // class start
         }// if end
         session.removeAttribute("logMno");
         return true;
+    }// func end
+
+    // 내정보조회 기능
+    @GetMapping("/info")
+    public MemberDto info(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        // 만약에 세션이 없거나 특정한 속성값이 없으면 (유효성검사) 비로그인상태
+        if (session == null || session.getAttribute("logMno") == null){
+            return null; // 비로그인상태
+        }// if end
+        int mno = (int)session.getAttribute("logMno");
+        MemberDto result = memberService.info(mno);
+        return result;
+    }// func end
+
+    // 특정한 필드/열/컬럼 의 값 중복/존재 확인
+    @GetMapping("/check")
+    public boolean check(@RequestParam String type , @RequestParam String data){
+        boolean result = memberService.check(type, data);
+        return result;
+    }// func end
+
+    // 회원정보 수정 기능
+    @PutMapping("/update")
+    public boolean update(@RequestBody MemberDto dto , HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("logMno") == null){
+            return false;
+        }// if end
+        int mno = (int)session.getAttribute("logMno");
+        dto.setMno(mno);
+        boolean result = memberService.update(dto);
+        return result;
+    }// func end
+
+    // 비밀번호 수정기능
+    @PutMapping("/update/password")
+    public boolean updatePassword(@RequestBody Map<String,String> map , HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("logMno") == null){
+            return false;
+        }// if end
+        int mno = (int)session.getAttribute("logMno");
+        boolean result = memberService.updatePassword(map,mno);
+        return result;
+    }// func end
+
+    // 회원탈퇴 기능
+    @DeleteMapping("/delete")
+    public boolean delete(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("logMno") == null){
+            return false;
+        }// if end
+        int mno = (int)session.getAttribute("logMno");
+        boolean result = memberService.delete(mno);
+        return result;
     }// func end
 
 }// class end
