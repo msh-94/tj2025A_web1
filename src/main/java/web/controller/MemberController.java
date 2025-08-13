@@ -96,13 +96,13 @@ public class MemberController { // class start
 
     // 회원탈퇴 기능
     @DeleteMapping("/delete")
-    public boolean delete(HttpServletRequest request){
+    public boolean delete(@RequestParam String mpwd , HttpServletRequest request){
         HttpSession session = request.getSession();
         if (session == null || session.getAttribute("logMno") == null){
             return false;
         }// if end
         int mno = (int)session.getAttribute("logMno");
-        boolean result = memberService.delete(mno);
+        boolean result = memberService.delete(mno , mpwd);
         return result;
     }// func end
 

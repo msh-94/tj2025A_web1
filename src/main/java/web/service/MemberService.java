@@ -53,8 +53,8 @@ public class MemberService { // class start
     }// func end
 
     // 회원탈퇴 기능
-    public boolean delete(int mno){
-        boolean result = memberDao.delete(mno);
+    public boolean delete(int mno , String mpwd){
+        boolean result = memberDao.delete(mno, mpwd);
         return result;
     }// func end
 

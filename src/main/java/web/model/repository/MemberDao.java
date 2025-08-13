@@ -110,11 +110,12 @@ public class MemberDao extends Dao { // class start
     }// func end
 
     // 회원탈퇴 기능
-    public boolean delete(int mno){
+    public boolean delete(int mno , String mpwd){
         try{
-            String sql = "delete from member where mno = ?";
+            String sql = "delete from member where mno = ? and mpwd = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,mno);
+            ps.setString(2,mpwd);
             int count = ps.executeUpdate();
             if (count == 1) return true;
         } catch (Exception e) { System.out.println(e); }
