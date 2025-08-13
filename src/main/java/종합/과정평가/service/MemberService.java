@@ -1,5 +1,6 @@
 package 종합.과정평가.service;// 패키지명
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import 종합.과정평가.model.dao.MemberDao;
 import 종합.과정평가.model.dto.MemberDto;
@@ -10,7 +11,8 @@ import java.util.List;
 public class MemberService {// class start
     // dao 불러오기
     private final MemberDao memberDao;
-    private MemberService(MemberDao memberDao ){
+    @Autowired
+    public MemberService(MemberDao memberDao ){
         this.memberDao = memberDao;
     }
 

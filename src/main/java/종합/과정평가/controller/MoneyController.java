@@ -1,5 +1,6 @@
 package 종합.과정평가.controller; // 패키지명
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,8 @@ import java.util.Map;
 public class MoneyController {//class start
     // service 불러오기
     private final Moneyservice moneyservice;
-    private MoneyController(Moneyservice moneyservice){
+    @Autowired
+    public MoneyController(Moneyservice moneyservice){
         this.moneyservice = moneyservice;
     }
 

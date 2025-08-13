@@ -1,5 +1,6 @@
 package 종합.과정평가.controller; // 패키지명
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import 종합.과정평가.model.dto.MemberDto;
 import 종합.과정평가.service.MemberService;
@@ -12,7 +13,8 @@ import java.util.List;
 public class MemberController { // class start
     // service 불러오기
     private final MemberService memberService;
-    private MemberController(MemberService memberService){
+    @Autowired
+    public MemberController(MemberService memberService){
         this.memberService = memberService;
     }
 

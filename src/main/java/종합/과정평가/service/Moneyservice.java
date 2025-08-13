@@ -1,5 +1,6 @@
 package 종합.과정평가.service; // 패키지명
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import 종합.과정평가.model.dao.MoneyDao;
 
@@ -10,7 +11,8 @@ import java.util.Map;
 public class Moneyservice {// class start
     // dao 불러오기
     private final MoneyDao moneyDao;
-    private Moneyservice(MoneyDao moneyDao){
+    @Autowired
+    public Moneyservice(MoneyDao moneyDao){
         this.moneyDao = moneyDao;
     }
 
