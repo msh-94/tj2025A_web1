@@ -31,4 +31,20 @@ public class MemberDao extends Dao { // class start
         return 0;
     }// func end
 
+    // 로그인 기능
+    public int login(MemberDto dto){
+        try{
+            String sql = "select * from member where mid = ? and mpwd = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getMid());
+            ps.setString(2,dto.getMpwd());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                int logMno = rs.getInt("mno");
+                return logMno;
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return 0;
+    }// func end
+
 }// class end

@@ -20,4 +20,11 @@ public class MemberService { // class start
         return result;
     }// func end
 
+    // 로그인 기능
+    public int login(MemberDto dto){
+        int result = memberDao.login(dto);
+        return result;
+    }// func end
+
+
 }// class end
