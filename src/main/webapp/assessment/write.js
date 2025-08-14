@@ -4,16 +4,16 @@ console.log("write.js 확인");
 const memberAdd = async () => {
     const custno = document.querySelector('.numBox').value;
     const custname = document.querySelector('.nameBox').value;
-    if(custname == null){alert('회원성명이 입렵되지않았습니다'); return;}
+    if(custname == ''){alert('회원성명이 입렵되지않았습니다'); return;}
     const phone = document.querySelector('.phoneBox').value;
-    if(phone == null){alert('회원전화가 입렵되지않았습니다'); return;}
+    if(phone == ''){alert('회원전화가 입렵되지않았습니다'); return;}
     const address = document.querySelector('.adressBox').value;
-    if(address == null){alert('주소가 입렵되지않았습니다'); return;}
+    if(address == ''){alert('주소가 입렵되지않았습니다'); return;}
     const joindate = document.querySelector('.dateBox').value;
     const grade = document.querySelector('.gradeBox').value;
-    if(grade == null){alert('고객등급이 입렵되지않았습니다'); return;}
+    if(grade == ''){alert('고객등급이 입렵되지않았습니다'); return;}
     const city = document.querySelector('.cityBox').value;
-    if(city == null){alert('도시코드가 입렵되지않았습니다'); return;}
+    if(city == ''){alert('도시코드가 입렵되지않았습니다'); return;}
     const obj = { custno , custname , phone , address , joindate , grade , city };
     const option = {
         method : "POST" , 
