@@ -91,6 +91,7 @@ public class MemberController { // class start
         }// if end
         int mno = (int)session.getAttribute("logMno");
         boolean result = memberService.updatePassword(map,mno);
+        if (result)session.removeAttribute("logMno");
         return result;
     }// func end
 
@@ -103,6 +104,7 @@ public class MemberController { // class start
         }// if end
         int mno = (int)session.getAttribute("logMno");
         boolean result = memberService.delete(mno , mpwd);
+        if(result)session.removeAttribute("logMno");
         return result;
     }// func end
 
