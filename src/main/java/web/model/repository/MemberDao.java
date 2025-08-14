@@ -156,7 +156,15 @@ public class MemberDao extends Dao { // class start
                     char str = (char)var;
                     ranPwd += str;
                 }// for end
-                return ranPwd;
+                String pwd = "update member set mpwd = ? where mid = ? and mphone = ?";
+                PreparedStatement ps1 = conn.prepareStatement(pwd);
+                ps1.setString(1,ranPwd);
+                ps1.setString(2,mid);
+                ps1.setString(3,mphone);
+                int count = ps1.executeUpdate();
+                if (count == 1){
+                    return ranPwd;
+                }// if end
             }// if end
         } catch (Exception e) { System.out.println(e); }
         return null;

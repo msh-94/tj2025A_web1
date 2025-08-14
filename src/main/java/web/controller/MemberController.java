@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
 import web.service.MemberService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -117,9 +118,12 @@ public class MemberController { // class start
 
     // 비밀번호 찾기 기능
     @GetMapping("/pwdfind")
-    public String pwdFind(@RequestParam String mid , @RequestParam String mphone){
+    public Map<String , String >  pwdFind(@RequestParam String mid , @RequestParam String mphone){
         String result = memberService.pwdFind(mid, mphone);
-        return result;
+        Map<String,String> map = new HashMap<>();
+        map.put( "msg" , result );
+        return map;
+
     }// func end
 
 }// class end
