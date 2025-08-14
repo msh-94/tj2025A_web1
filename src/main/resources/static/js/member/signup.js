@@ -1,9 +1,12 @@
 console.log('signup.js 확인');
 
+// *** 유효성 검사 체크리스트 ***
+const signPass = [ false , false ]; // 초기값은 실패 , 0인덱스 : 아이디체크 , 1인덱스 : 연락처 체크
+
 // 회원가입
 const signup = async () => {
-    if(signPass[0] == false ){ alert('올바른 아이디를 입력해주세요'); return;}
-    if(signPass[1] == false ){ alert('올바른 연락처를 입력해주세요'); return;}
+    // js 배열내 요소찾기 .indexOf()  , .includes() : 배열내 요소가 존재하는지 true/false 반환
+    if(signPass.includes(false)){ alert('올바른 정보를 입력해주세요'); return;}    
     const mid = document.querySelector('#idInput').value;
     const mpwd = document.querySelector('#pwdInput').value;
     const mname = document.querySelector('#nameInput').value;
@@ -27,9 +30,6 @@ const signup = async () => {
         }else{alert('회원가입 실패')} // if end
     }catch(error){console.log(error); }// catch end
 }// func end
-
-// *** 유효성 검사 체크리스트 ***
-const signPass = [ false , false ]; // 초기값은 실패 , 0인덱스 : 아이디체크 , 1인덱스 : 연락처 체크
 
 // 아이디 중복검사
 const idCheck = async () => {
@@ -55,7 +55,8 @@ const phoneCheck = async () => {
     const mphone = document.querySelector('#phoneInput').value;
     const phoneCheck = document.querySelector('.phoneCheck');
     if(mphone.length != 13){
-        phoneCheck.innerHTML = '연락처는 13자리로 입력해주세요';
+        phoneCheck.innerHTML = '연락처는 -(하이픈)포함 13자리로 입력해주세요';
+        signup[1] = false;
         return;
     }// if end
     try{
@@ -68,5 +69,5 @@ const phoneCheck = async () => {
             phoneCheck.innerHTML = '사용가능한 연락처입니다.';  
             signPass[1] = true;           
         }// if end
-    }catch{ }// catch end
+    }catch(error){ console.log(error); }// catch end
 }// func end
