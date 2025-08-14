@@ -58,5 +58,17 @@ public class MemberService { // class start
         return result;
     }// func end
 
+    // 아이디 찾기 기능
+    public MemberDto idFind(String mname , String mphone){
+        MemberDto result = memberDao.idFind(mname,mphone);
+        return result;
+    }// func end
+
+    // 비밀번호 찾기 기능
+    public String pwdFind(String mid , String mphone){
+        String result = memberDao.pwdFind(mid, mphone);
+        return result;
+    }// func end
+
 
 }// class end

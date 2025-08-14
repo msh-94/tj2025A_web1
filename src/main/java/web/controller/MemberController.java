@@ -108,4 +108,18 @@ public class MemberController { // class start
         return result;
     }// func end
 
+    // 아이디 찾기 기능
+    @GetMapping("/idfind")
+    public MemberDto idFind(@RequestParam String mname , @RequestParam String mphone){
+        MemberDto result = memberService.idFind(mname,mphone);
+        return result;
+    }// func end
+
+    // 비밀번호 찾기 기능
+    @GetMapping("/pwdfind")
+    public String pwdFind(@RequestParam String mid , @RequestParam String mphone){
+        String result = memberService.pwdFind(mid, mphone);
+        return result;
+    }// func end
+
 }// class end

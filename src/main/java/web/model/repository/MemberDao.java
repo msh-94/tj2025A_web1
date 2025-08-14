@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 @Repository
 public class MemberDao extends Dao { // class start
@@ -121,5 +122,46 @@ public class MemberDao extends Dao { // class start
         } catch (Exception e) { System.out.println(e); }
         return false;
     }// func end
+
+    // 아이디 찾기 기능
+    public MemberDto idFind(String mname , String mphone){
+        try{
+            String sql = "select mid from member where mname = ? and mphone = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,mname);
+            ps.setString(2,mphone);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                MemberDto result = new MemberDto();
+                result.setMid(rs.getString("mid"));
+                return result;
+            }// if end
+        }catch (Exception e){ System.out.println(e); }
+        return null;
+    }// func end
+
+    // 비밀번호 찾기 기능
+    public String pwdFind(String mid , String mphone){
+        try{
+            String sql = "select * from member where mid = ? and mphone = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,mid);
+            ps.setString(2,mphone);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                String ranPwd = "";
+                for (int i = 0; i < 5; i++){
+                    Random ran = new Random();
+                    int var = ran.nextInt(26)+97;
+                    char str = (char)var;
+                    ranPwd += str;
+                }// for end
+                return ranPwd;
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return null;
+    }// func end
+
+
 
 }// class end
