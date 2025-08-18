@@ -1,0 +1,12 @@
+#container{ 
+    display: flex; /* 하위 요소들 가로 배치 */
+    height: 90vh; /* vh : 화면에서 크기/비율 헤더10제외한 */
+}
+#map{ width: 80%;}
+#sidebar{
+    width: 20%; padding: 10px;
+    overflow-y: auto; /* 내용이 넘쳤을때 세로 스크롤 생성 */
+}
+#store{
+    margin-bottom: 20px;
+}
