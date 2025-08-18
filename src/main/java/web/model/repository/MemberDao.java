@@ -141,7 +141,7 @@ public class MemberDao extends Dao { // class start
     }// func end
 
     // 비밀번호 찾기 기능
-    public String pwdFind(String mid , String mphone){
+    public boolean pwdFind(String mid , String mphone , String ranPwd){
         try{
             String sql = "select * from member where mid = ? and mphone = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -149,13 +149,7 @@ public class MemberDao extends Dao { // class start
             ps.setString(2,mphone);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-                String ranPwd = "";
-                for (int i = 0; i < 5; i++){
-                    Random ran = new Random();
-                    int var = ran.nextInt(26)+97;
-                    char str = (char)var;
-                    ranPwd += str;
-                }// for end
+
                 String pwd = "update member set mpwd = ? where mid = ? and mphone = ?";
                 PreparedStatement ps1 = conn.prepareStatement(pwd);
                 ps1.setString(1,ranPwd);
@@ -163,11 +157,11 @@ public class MemberDao extends Dao { // class start
                 ps1.setString(3,mphone);
                 int count = ps1.executeUpdate();
                 if (count == 1){
-                    return ranPwd;
+                    return true;
                 }// if end
             }// if end
         } catch (Exception e) { System.out.println(e); }
-        return null;
+        return false;
     }// func end
 
 

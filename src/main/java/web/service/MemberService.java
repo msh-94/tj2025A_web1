@@ -6,6 +6,7 @@ import web.model.dto.MemberDto;
 import web.model.repository.MemberDao;
 
 import java.util.Map;
+import java.util.Random;
 
 @Service // 스프링 컨테이너(메모리) 빈(객체) 등록
 public class MemberService { // class start
@@ -66,8 +67,16 @@ public class MemberService { // class start
 
     // 비밀번호 찾기 기능
     public String pwdFind(String mid , String mphone){
-        String result = memberDao.pwdFind(mid, mphone);
-        return result;
+        String ranPwd = "";
+        for (int i = 0; i < 5; i++){
+            Random ran = new Random();
+            int var = ran.nextInt(26)+97;
+            char str = (char)var;
+            ranPwd += str;
+        }// for end
+        boolean result = memberDao.pwdFind(mid, mphone , ranPwd);
+        if (result) return ranPwd;
+        return null;
     }// func end
 
 
