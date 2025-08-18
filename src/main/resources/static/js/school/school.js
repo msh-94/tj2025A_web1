@@ -3,7 +3,7 @@ console.log('school.js 확인');
 // [1] 공공데이터
 const schoolAPI = async() => {
     const serviceKey = "yEuDg6mhI4rl%2BfM8AjkjZP7rc8bakzSDaSk%2BtC8YCBM9wNnl8E1h5rXlflFfMXMLjJQZNrZvLQNGT97JfZAKGA%3D%3D";
-    const URL = "https://api.odcloud.kr/api/15039731/v1/uddi:1fcb72a0-ba75-4c97-a045-9ef7e3ef43c0?page=1&perPage=10&serviceKey=";
+    const URL = "https://api.odcloud.kr/api/15039731/v1/uddi:1fcb72a0-ba75-4c97-a045-9ef7e3ef43c0?page=1&perPage=72&serviceKey=";
     const response = await fetch(URL+serviceKey);
     const data = await response.json();
     const sidebar = document.querySelector("#sidebar");
@@ -34,7 +34,7 @@ const kmap = async() => {
         disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
     });
     const serviceKey = "yEuDg6mhI4rl%2BfM8AjkjZP7rc8bakzSDaSk%2BtC8YCBM9wNnl8E1h5rXlflFfMXMLjJQZNrZvLQNGT97JfZAKGA%3D%3D";
-    const URL = "https://api.odcloud.kr/api/15039731/v1/uddi:1fcb72a0-ba75-4c97-a045-9ef7e3ef43c0?page=1&perPage=10&serviceKey=";
+    const URL = "https://api.odcloud.kr/api/15039731/v1/uddi:1fcb72a0-ba75-4c97-a045-9ef7e3ef43c0?page=1&perPage=72&serviceKey=";
     const response = await fetch(URL+serviceKey);
     const data = await response.json();  
     let markers = data.data.map( (position) => {
