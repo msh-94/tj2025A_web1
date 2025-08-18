@@ -23,7 +23,6 @@ schoolAPI();
 const togle = async() => {    
     rvContainer = document.getElementById('roadview'), // 로드뷰를 표시할 div 입니다
     mapContainer = document.getElementById('map'); // 지도를 표시할 div 입니다
-
     // 지도와 로드뷰 위에 마커로 표시할 특정 장소의 좌표입니다 
     var placePosition = new kakao.maps.LatLng( 37.41038125, 126.6782658 ); // 연수구청 좌표
     // 지도 옵션입니다 
@@ -69,18 +68,14 @@ const togle = async() => {
     // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
     // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
     kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-
         // 현재 지도 레벨에서 1레벨 확대한 레벨
         var level = map.getLevel()-1;
-
         // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
         map.setLevel(level, {anchor: cluster.getCenter()});
     });
-
     var roadviewClient = new kakao.maps.RoadviewClient();
     roadviewClient.getNearestPanoId(placePosition, 50, function(panoId) {
         roadview.setPanoId(panoId, placePosition);
-
         // 시점 설정 (옵션)
         roadview.setViewpoint({
             pan: 321,
@@ -100,8 +95,6 @@ const togle = async() => {
             kakao.maps.event.addListener(rvmarker, 'click', () => {
             infowindow.setContent(`<div class="custom-info-window">학교명: ${position.학교명}</div>`);
             infowindow.open(roadview, rvmarker);
-            
-            
             const sidebar = document.querySelector('#sidebar');
             sidebar.innerHTML = `
                 <button type="button" onclick="schoolAPI()">전체보기</button>
@@ -111,10 +104,9 @@ const togle = async() => {
                     <div>주소 : ${position.주소}</div>
                 </div>`;
             });
-
             return rvmarker;
         });// map end               
-    });
+    });// panoId end
 }// func end
 togle();
 
