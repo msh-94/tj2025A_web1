@@ -43,11 +43,26 @@ const kakaoMap = async() => {
     console.log(data); // 약국 정보
     // (4) map 반복문을 이용하여 마커를 하나씩 생성하여 return 한 마커를 markers 변수(배열)에 대입
     let markers = data.data.map( (value) => { // forEach 리턴없다 vs map 리턴있다.
-        // (5) 마커 생성후 리턴(반환)
-        return new kakao.maps.Marker({
+        // (5-1) 마커 생성       
+        let marker = new kakao.maps.Marker({
                 position : new kakao.maps.LatLng(value.위도, value.경도) // 위도( Latitude ), 경도( Longitude ) 
             });
-    });   
+        // (5-2) 마커 클릭 이벤트 넣기
+        kakao.maps.event.addListener( marker , 'click' , () => {
+            // (*) 내가 클릭한 마커의 약국정보를 사이드바(특정html)에  출력하기
+            const sidebar = document.querySelector('#sidebar');
+            let html = `<button type="button" onclick="dataAPI()"> 전체보기 </button>
+                        <div id="store">
+                            <div>${value.약국명}</div>
+                            <div>${value.전화번호}</div>
+                            <div>${value.소재지도로명주소}</div>
+                        </div>`
+            sidebar.innerHTML = html;
+         } )
+        // (5-3) 마커 리턴
+        return marker;
+    }); // map end
+       
     // (6) 여러개 마커를 가진 markers 변수를 클러스터에 등록
     clusterer.addMarkers(markers);   
 
