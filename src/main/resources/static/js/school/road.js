@@ -20,16 +20,12 @@ const schoolAPI = async() => {
 schoolAPI();
 
 // [2] 로드뷰와 지도 토글하기
-const togle = async() => {
-    var container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
-    mapWrapper = document.getElementById('mapWrapper'), // 지도를 감싸고 있는 div 입니다
-    btnRoadview = document.getElementById('btnRoadview'), // 지도 위의 로드뷰 버튼, 클릭하면 지도는 감춰지고 로드뷰가 보입니다 
-    btnMap = document.getElementById('btnMap'), // 로드뷰 위의 지도 버튼, 클릭하면 로드뷰는 감춰지고 지도가 보입니다 
+const togle = async() => {    
     rvContainer = document.getElementById('roadview'), // 로드뷰를 표시할 div 입니다
     mapContainer = document.getElementById('map'); // 지도를 표시할 div 입니다
 
     // 지도와 로드뷰 위에 마커로 표시할 특정 장소의 좌표입니다 
-    var placePosition = new kakao.maps.LatLng( 37.41038125, 126.6782658 );
+    var placePosition = new kakao.maps.LatLng( 37.41038125, 126.6782658 ); // 연수구청 좌표
     // 지도 옵션입니다 
     var mapOption = {
         center: placePosition, // 지도의 중심좌표 
@@ -46,6 +42,7 @@ const togle = async() => {
         minLevel: 4, // 클러스터 할 최소 지도 레벨
         disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
     });
+    // 마커 생성 및 반환
     const serviceKey = "yEuDg6mhI4rl%2BfM8AjkjZP7rc8bakzSDaSk%2BtC8YCBM9wNnl8E1h5rXlflFfMXMLjJQZNrZvLQNGT97JfZAKGA%3D%3D";
     const URL = "https://api.odcloud.kr/api/15039731/v1/uddi:1fcb72a0-ba75-4c97-a045-9ef7e3ef43c0?page=1&perPage=72&serviceKey=";
     const response = await fetch(URL+serviceKey);
@@ -91,7 +88,7 @@ const togle = async() => {
             zoom: 0
         });
         //  InfoWindow 생성
-        var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+        let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
         // 로드뷰 마커 추가
         let rvMarkers = data.data.map( (position) => {
@@ -104,7 +101,7 @@ const togle = async() => {
             infowindow.setContent(`<div class="custom-info-window">학교명: ${position.학교명}</div>`);
             infowindow.open(roadview, rvmarker);
             
-            // 사이드바 내용 변경도 가능
+            
             const sidebar = document.querySelector('#sidebar');
             sidebar.innerHTML = `
                 <button type="button" onclick="schoolAPI()">전체보기</button>
