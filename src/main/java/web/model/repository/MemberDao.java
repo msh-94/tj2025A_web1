@@ -149,7 +149,6 @@ public class MemberDao extends Dao { // class start
             ps.setString(2,mphone);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-
                 String pwd = "update member set mpwd = ? where mid = ? and mphone = ?";
                 PreparedStatement ps1 = conn.prepareStatement(pwd);
                 ps1.setString(1,ranPwd);
