@@ -5,7 +5,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
+import web.model.dto.PointLogDto;
 import web.service.MemberService;
+import web.service.PointLogService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +17,24 @@ import java.util.Map;
 public class MemberController { // class start
     // service 가져오기
     private final MemberService memberService;
+    private final PointLogService pointLogService;
     @Autowired
-    public MemberController(MemberService memberService){
+    public MemberController(MemberService memberService , PointLogService pointLogService){
         this.memberService = memberService;
+        this.pointLogService = pointLogService;
     }
 
     // 회원가입 기능
     @PostMapping("/signup")
     public int signUp(@RequestBody MemberDto dto){
         int result = memberService.signUp(dto);
+        if (result > 0){
+            PointLogDto pldto = new PointLogDto();
+            pldto.setMno(result);
+            pldto.setPlcomment("회원가입");
+            pldto.setPlpoint(1000);
+            pointLogService.pointLogAdd(pldto);
+        }// if end
         return result;
     }// func end
 
@@ -34,6 +45,11 @@ public class MemberController { // class start
         HttpSession session = request.getSession();
         if (result > 0){
             session.setAttribute("logMno",result);
+            PointLogDto pldto = new PointLogDto();
+            pldto.setMno(result);
+            pldto.setPlcomment("로그인");
+            pldto.setPlpoint(100);
+            pointLogService.pointLogAdd(pldto);
         }// if end
         return result;
     }// func end
