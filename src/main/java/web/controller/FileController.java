@@ -33,6 +33,14 @@ public class FileController {// class start
         fileService.fileDownload( fileName , response );
     }// func end
 
+    // [3] 파일 삭제
+    @GetMapping("/delete")
+    // GET , http://localhost:8080/file/delete?fileName=cb4d0a58-415a-4a8c-83b4-17cc3f8ec43e_e8410a597f7093bb10faf9badb7ce223f43ad912ad8dd55b04db6a64cddaf76d.gif
+    public boolean fileDelete(@RequestParam String fileName){
+        boolean result = fileService.fileDelete(fileName);
+        return result;
+    }// func end
+
 
 
 
