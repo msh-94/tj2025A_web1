@@ -3,14 +3,13 @@ package web.controller;// 패키지명
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import web.model.dto.ProductDto;
 import web.service.FileService;
 import web.service.ProductService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -53,8 +52,16 @@ public class ProductController { // class start
     }// func end
 
     // [2] 제품 전체 조회
+    @GetMapping("list")
+    public List<ProductDto> getAllProduct(){
+        return productService.getAllProduct();
+    }// func end
 
     // [3] 제품 상세 조회
+    @GetMapping("find")
+    public ProductDto getProduct(@RequestParam int pno){
+        return productService.getProduct(pno);
+    }// func end
 
 
 }// class end
