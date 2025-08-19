@@ -52,13 +52,13 @@ public class ProductController { // class start
     }// func end
 
     // [2] 제품 전체 조회
-    @GetMapping("list")
+    @GetMapping("/list")
     public List<ProductDto> getAllProduct(){
         return productService.getAllProduct();
     }// func end
 
     // [3] 제품 상세 조회
-    @GetMapping("find")
+    @GetMapping("/find")
     public ProductDto getProduct(@RequestParam int pno){
         return productService.getProduct(pno);
     }// func end
