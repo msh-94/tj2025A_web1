@@ -13,7 +13,7 @@ public class ProductDto {// class start
     private int pno;
     private String pname;
     private int pprice;
-    private String pcoment;
+    private String pcomment;
     private String pdate;
     private double plat;
     private double plng;
