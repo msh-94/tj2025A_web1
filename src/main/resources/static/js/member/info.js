@@ -33,3 +33,27 @@ const onDelete = async () => {
         }// if end
     }catch(error){ console.log(error); }// catch end
 }// func end
+
+// 포인트 로그 전체조회
+const pointLog = async() => {
+    const pointtbody = document.querySelector('#pointTbody');
+    try{
+        const response = await fetch("/point/print"); console.log(response);
+        const data = await response.json();     console.log(data);        
+        if(data != null){
+            let html = "";
+            for(let i = 0; i < data.length; i++){
+                let log = data[i];  console.log(log);
+                html += `<tr>
+                            <td>${log.plno}</td>
+                            <td>${log.plpoint}</td>
+                            <td>${log.plcomment}</td>
+                            <td>${log.pldate}</td>                        
+                        </tr>`
+            }// for end     
+            console.log(html);
+            pointtbody.innerHTML = html;       
+        }// if end        
+    }catch(error){ console.log(error); }
+}// func end
+pointLog();
