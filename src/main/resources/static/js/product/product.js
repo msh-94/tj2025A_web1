@@ -48,7 +48,7 @@ const onCreate = async () => {
     const option = { method : "POST" , body : productFormData } // headers 생략가능 
     const response = await fetch("/product/create",option);
     const data = await response.json();
-    if( data > 0 ){ alert('등록 성공'); }
+    if( data > 0 ){ alert('등록 성공'); location.href="/product/list.jsp"; }
     else{ alert('등록 실패'); }
 } // func end
 
