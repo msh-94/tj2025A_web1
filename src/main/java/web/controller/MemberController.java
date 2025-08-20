@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import web.model.dto.MemberDto;
 import web.model.dto.PointLogDto;
+import web.service.FileService;
 import web.service.MemberService;
 import web.service.PointLogService;
 
@@ -18,15 +20,17 @@ public class MemberController { // class start
     // service 가져오기
     private final MemberService memberService;
     private final PointLogService pointLogService;
+    private final FileService fileService;
     @Autowired
-    public MemberController(MemberService memberService , PointLogService pointLogService){
+    public MemberController(MemberService memberService , PointLogService pointLogService , FileService fileService){
         this.memberService = memberService;
         this.pointLogService = pointLogService;
+        this.fileService = fileService;
     }
 
     // 회원가입 기능
     @PostMapping("/signup")
-    public int signUp(@RequestBody MemberDto dto){
+    public int signUp( MemberDto dto){
         int result = memberService.signUp(dto);
         if (result > 0){
             PointLogDto pldto = new PointLogDto();
@@ -34,6 +38,14 @@ public class MemberController { // class start
             pldto.setPlcomment("회원가입");
             pldto.setPlpoint(1000);
             pointLogService.pointLogAdd(pldto);
+            if (!dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
+                for (MultipartFile multipartFile : dto.getUploads()){
+                    String fileName = fileService.fileUpload(multipartFile);
+                    if (fileName == null) return 0;
+                    boolean result2 = memberService.createMemberProfile(result,fileName);
+                    if (result2 == false) return 0;
+                }// for end
+            }// if end
         }// if end
         return result;
     }// func end
@@ -88,7 +100,7 @@ public class MemberController { // class start
 
     // 회원정보 수정 기능
     @PutMapping("/update")
-    public boolean update(@RequestBody MemberDto dto , HttpServletRequest request){
+    public boolean update(  MemberDto dto , HttpServletRequest request){
         HttpSession session = request.getSession();
         if (session == null || session.getAttribute("logMno") == null){
             return false;
@@ -96,6 +108,14 @@ public class MemberController { // class start
         int mno = (int)session.getAttribute("logMno");
         dto.setMno(mno);
         boolean result = memberService.update(dto);
+        if (result && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
+            for (MultipartFile multipartFile : dto.getUploads()){
+                String fileName = fileService.fileUpload(multipartFile);
+                if (fileName == null) return false;
+                boolean result2 = memberService.createMemberProfile(mno,fileName);
+                if (result2 == false) return false;
+            }// for end
+        }// if end
         return result;
     }// func end
 
@@ -139,7 +159,6 @@ public class MemberController { // class start
         Map<String,String> map = new HashMap<>();
         map.put( "msg" , result );
         return map;
-
     }// func end
 
 }// class end

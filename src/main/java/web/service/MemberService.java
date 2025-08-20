@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import web.model.dto.MemberDto;
 import web.model.repository.MemberDao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -32,6 +33,10 @@ public class MemberService { // class start
     // 내정보조회 기능
     public MemberDto info(int mno){
         MemberDto result = memberDao.info(mno);
+        if (result != null){
+            List<String> mimgname = memberDao.getMemberProfile(mno);
+            result.setImages(mimgname);
+        }// if end
         return result;
     }// func end
 
@@ -79,5 +84,9 @@ public class MemberService { // class start
         return null;
     }// func end
 
+    // 회원프로필 등록 기능
+    public boolean createMemberProfile(int mno , String fileName){
+        return memberDao.createMemberProfile(mno,fileName);
+    }// func end   
 
 }// class end

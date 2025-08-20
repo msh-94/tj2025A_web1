@@ -7,20 +7,12 @@ const signPass = [ false , false ]; // 초기값은 실패 , 0인덱스 : 아이
 const signup = async () => {
     // js 배열내 요소찾기 .indexOf()  , .includes() : 배열내 요소가 존재하는지 true/false 반환
     if(signPass.includes(false)){ alert('올바른 정보를 입력해주세요'); return;}    
-    const mid = document.querySelector('#idInput').value;
-    const mpwd = document.querySelector('#pwdInput').value;
-    const mname = document.querySelector('#nameInput').value;
-    const mphone = document.querySelector('#phoneInput').value;
-    if(mid == ''){alert('아이디를 입력해주세요'); return;}
-    if(mpwd == ''){alert('비밀번호를 입력해주세요'); return;}
-    if(mname == ''){alert('이름을 입력해주세요'); return;}
-    if(mphone == ''){alert('연락처를 입력해주세요'); return;}    
-    const obj = { mid , mpwd , mname , mphone };
+    const profileForm = document.querySelector('#profileForm');
+    const profileFormData = new FormData(profileForm);
     try{
         const option = {
-            method : "POST" ,
-            headers : { "Content-Type" : "application/json" } ,
-            body : JSON.stringify(obj)
+            method : "POST" ,            
+            body : profileFormData
         }// option end
         const response = await fetch("/member/signup",option);
         const data = await response.json();
@@ -33,7 +25,7 @@ const signup = async () => {
 
 // 아이디 중복검사
 const idCheck = async () => {
-    const mid = document.querySelector('#idInput').value;
+    const mid = document.querySelector('.idInput').value;
     // 유효성검사 길이검사
     if(mid.length < 4){ // 만약에 아이디가 4글자 미만이면
         document.querySelector('.idCheck').innerHTML = `아이디는 4글자 이상으로 가능합니다.`;
@@ -52,7 +44,7 @@ const idCheck = async () => {
 
 // 연락처 중복검사
 const phoneCheck = async () => {
-    const mphone = document.querySelector('#phoneInput').value;
+    const mphone = document.querySelector('.phoneInput').value;
     const phoneCheck = document.querySelector('.phoneCheck');
     if(mphone.length != 13){
         phoneCheck.innerHTML = '연락처는 -(하이픈)포함 13자리로 입력해주세요';
@@ -71,3 +63,5 @@ const phoneCheck = async () => {
         }// if end
     }catch(error){ console.log(error); }// catch end
 }// func end
+
+

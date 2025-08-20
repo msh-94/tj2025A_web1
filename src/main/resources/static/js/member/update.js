@@ -2,19 +2,19 @@ console.log('update.js 확인');
 
  // 회원정보 수정
 const onUpdate = async () => {      
-    const mname = document.querySelector('.mname').value;
-    const mphone = document.querySelector('.mphone').value;    
-    if(mname == ''){alert('이름을 입력해주세요'); return; }
-    if(mphone == ''){alert('연락처를 입력해주세요'); return; }
-    const obj = { mname , mphone }
+    const updateForm = document.querySelector('#updateForm');
+    const updateFormData = new FormData(updateForm);
+    const mno = document.querySelector('.mno').innerHTML;
+    const mid = document.querySelector('.mid').innerHTML;    
+    updateFormData.append('mno', mno);
+    updateFormData.append('mid', mid);
     try{
         const option = {
-            method : "PUT" , 
-            headers : { "Content-Type" : "application/json" } ,
-            body : JSON.stringify(obj)
+            method : "PUT" ,             
+            body : updateFormData
         }// option end
-        const response = await fetch("/member/update",option);
-        const data = await response.json();
+        const response = await fetch("/member/update",option);  console.log(response);
+        const data = await response.json();     console.log(data);
         if(data == true){
             alert('회원정보가 수정되었습니다.');
             location.href="/member/info.jsp";

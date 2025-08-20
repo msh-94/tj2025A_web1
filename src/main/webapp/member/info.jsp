@@ -18,7 +18,8 @@
             <div>아이디 : <span class="mid"></span></div> 
             <div>이름 : <span class="mname"></span></div> 
             <div>연락처 : <span class="mphone"></span></div> 
-            <div>가입일 : <span class="mdate"></span></div> 
+            <div>가입일 : <span class="mdate"></span></div>
+            <div class="imgBox"></div> 
             <a href="/member/update.jsp"> 회원정보 수정 </a>
             <a href="/member/pwdupdate.jsp"> 비밀번호 수정 </a>
             <a href="#" onclick="onDelete()"> 회원 탈퇴 </a>

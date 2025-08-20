@@ -5,11 +5,18 @@ const info = async () => {
     try{
         const response = await fetch("/member/info");
         const data = await response.json();
+        let html = "";
+        if(data.images == null ){
+            html = `프로필 사진 : <img src="https://placehold.co/100x100"/>`
+        }else{
+            html = `프로필 사진 : <img src="/upload/${data.images[0]}"/>`
+        }// if end        
         document.querySelector('.mid').innerHTML = data.mid;
         document.querySelector('.mno').innerHTML = data.mno;
         document.querySelector('.mname').innerHTML = data.mname;
         document.querySelector('.mphone').innerHTML = data.mphone;
         document.querySelector('.mdate').innerHTML = data.mdate;
+        document.querySelector('.imgBox').innerHTML = html;
     }catch(error){ console.log(error);
         location.href="/member/login.jsp";
     }// catch end

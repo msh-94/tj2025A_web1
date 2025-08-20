@@ -6,9 +6,7 @@ import web.model.dto.MemberDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 @Repository
 public class MemberDao extends Dao { // class start
@@ -163,6 +161,35 @@ public class MemberDao extends Dao { // class start
         return false;
     }// func end
 
+    // 회원프로필 등록 기능
+    public boolean createMemberProfile(int mno , String fileName){
+        try{
+            String sql = "insert into memberimg(mimgname,mno) values(? , ? )";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,fileName);
+            ps.setInt(2,mno);
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+            ps.close();
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 특정회원 프로필사진명 조회
+    public List<String> getMemberProfile(int mno){
+        List<String> list = new ArrayList<>();
+        try{
+            String sql = "select * from memberimg where mno = ? order by mimgno desc ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,mno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                String mimgname = rs.getString("mimgname");
+                list.add(mimgname);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
 
 
 }// class end

@@ -3,6 +3,9 @@ package web.model.dto; // 패키지명
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +18,9 @@ public class MemberDto { // class start
     private String mname;
     private String mphone;
     private String mdate; // datetime 은 다양한 타입이 존재하지만 편하게 문자타입으로 사용
+    // + 커스텀(부가적인) 정보 포함
+    // 1) 업로드에 사용할 multipartFile 객체를 list 타입으로 여러개 첨부파일 받아오기
+    private List<MultipartFile> uploads;
+    // 2) 조회시 업로드된 파일명을 문자열로 조회하기
+    private List<String> images;
 }// class end
