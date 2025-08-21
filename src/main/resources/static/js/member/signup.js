@@ -9,8 +9,8 @@ const signup = async () => {
     if(signPass.includes(false)){ alert('올바른 정보를 입력해주세요'); return;}    
     const profileForm = document.querySelector('#profileForm');
     const profileFormData = new FormData(profileForm);  console.log(profileFormData);
-    if(!profileFormData.get('images')){
-        profileFormData.set('images', "https://placehold.co/100x100");
+    if(!profileFormData.get('uploads')){
+        profileFormData.set('uploads', "https://placehold.co/100x100");
     }// if end
     try{
         const option = {

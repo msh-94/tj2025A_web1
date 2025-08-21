@@ -54,6 +54,10 @@
     3. const option = { method : "POST" , body : formData }
         * 데이터 폼 전송시 HTTP Content-Type 타입은 multipart/form-data 이며 fetch 생략 가능
 
+* 스프링 서버에 업로드된 이미지를 html 에서 출력
+    1. <img src="http://localhost:8080/upload/파일명"/>
+    2. <img src="/upload/파일명"/>
+
 * 스프링 다운로드 구현 방법
     1. 흐름구조
         1) 자바가 다운로드 받을 파일을 바이트로 가져온다
