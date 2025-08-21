@@ -6,7 +6,7 @@ const info = async () => {
         const response = await fetch("/member/info");
         const data = await response.json();
         let html = "";
-        if(data.images == null ){
+        if(data.images[0] == null ){
             html = `프로필 사진 : <img src="https://placehold.co/100x100"/>`
         }else{
             html = `프로필 사진 : <img src="/upload/${data.images[0]}"/>`

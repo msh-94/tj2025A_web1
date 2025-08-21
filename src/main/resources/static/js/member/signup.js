@@ -8,7 +8,10 @@ const signup = async () => {
     // js 배열내 요소찾기 .indexOf()  , .includes() : 배열내 요소가 존재하는지 true/false 반환
     if(signPass.includes(false)){ alert('올바른 정보를 입력해주세요'); return;}    
     const profileForm = document.querySelector('#profileForm');
-    const profileFormData = new FormData(profileForm);
+    const profileFormData = new FormData(profileForm);  console.log(profileFormData);
+    if(!profileFormData.get('images')){
+        profileFormData.set('images', "https://placehold.co/100x100");
+    }// if end
     try{
         const option = {
             method : "POST" ,            

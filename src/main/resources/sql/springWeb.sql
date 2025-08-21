@@ -85,5 +85,15 @@ INSERT INTO pointlog (mno, plpoint, plcomment) VALUES (1, -6000, '상품구매')
 -- 회원 1이 이벤트 참여로 포인트 적립 (+500)
 INSERT INTO pointlog (mno, plpoint, plcomment) VALUES (1, 500, '이벤트적립');
 
-select * from pointlog where mno = 1 order by pldate desc;
+select * from pointlog;
+select * from pointlog where mno = 1 order by plno desc limit 1;
 select sum(plpoint) total from pointlog group by mno having mno = 1;
+-- ---------------------- memberimg ---------------------------------- --
+CREATE TABLE memberimg (
+	mimgno    INT AUTO_INCREMENT,              -- 회원 이미지 번호 (기본키)
+	mimgname  VARCHAR(255) NOT NULL,           -- 파일명
+	mno       INT NOT NULL,                    -- 회원 번호 (FK)
+	CONSTRAINT PRIMARY KEY (mimgno),
+	CONSTRAINT FOREIGN KEY (mno) REFERENCES member(mno) ON DELETE CASCADE
+);
+select * from memberimg;

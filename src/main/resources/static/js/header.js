@@ -14,7 +14,7 @@ const myinfo = async () => {
         // ** 비로그인시 응답자료가 null 이라서 .json() 타입변환 함수 에서 오류발생해서 catch로 이동 **
         // 2. [로그인중]로그인 했을때 정상 fetch        
         if(data1 > 0 ){
-            if(data.images != null){
+            if(data.images[0] != null){
                 html += `<li> <span><img src="/upload/${data.images[0]}"/> ${data.mid}님 ${data1} POINT </span></li>
                         <li> <a href="/member/info.jsp"> 내정보 </a></li>
                         <li> <a href="#" onclick="logout()"> 로그아웃 </a></li>`
