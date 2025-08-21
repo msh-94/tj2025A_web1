@@ -11,6 +11,9 @@
     <jsp:include page="/header.jsp"></jsp:include>
     <div id="container">
         <div id="map" style="width:100%;height:350px;"></div>
+        <div id="product">
+
+        </div>
     </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c6c30f9d661acbde0445ec214b19d76&libraries=clusterer"></script>
     <script src="/js/kakao/position.js"></script>
