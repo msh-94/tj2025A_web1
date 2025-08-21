@@ -12,26 +12,11 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
 
-    <div id="root">        
-        <main id="checkoutDialog" style="display: none">
-            <form id="checkoutForm">
-                <article>
-                    <div class="item">                        
-                        <div class="item-text">
-                            <h5 id="itemName">10.000point 충전</h5>
-                            <p class="price-value">10.000원</p>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <label>총 구입 가격</label>
-                        <span class="price-value" />
-                    </div>
-                </article>
-                <button id="checkoutButton" type="submit">결제</button>
-            </form>
-        </main>        
+    <div id="container">
+        <div>포인트충전 : <input type="text" id="amountInput"/></div>
+        <button type="button" onclick="chargeAdd()"> 결제 </button>
     </div>
-    
+
     <script src="https://cdn.portone.io/v2/browser-sdk.js" async defer></script>    
     <script src="/js/payment/pointCharge.js"></script>
 </body>
