@@ -56,9 +56,7 @@ INSERT INTO productimg (pimgname, pno) VALUES
 ('greenfit2.jpg', 1),
 ('coffee1.jpg', 2);
 
-select * from member;
-select * from product;
-select * from productimg;
+
 
 
 
@@ -75,7 +73,7 @@ insert into category (cname) values ('FAQ');
 insert into category (cname) values ('튜토리얼');
 insert into category (cname) values ('사용자 리뷰');
 
-select * from category;
+
 
 -- 게시물 테이블 [ 번호 , 제목 , 내용 , 작성일 , 조회수 , 작성자 , 카테고리번호 ]
 -- 'board' -> 'post' 로 변경, 컬럼 접두사 'b' -> 'p' 로 변경
@@ -208,7 +206,7 @@ insert into post (ptitle, pcontent, mno, cno) values
 ('가성비 좋은 이어폰 추천', '가성비 좋은 이어폰을 찾고 있다면, 이 제품을 추천드립니다. 가격 대비 성능이 뛰어나요.', 4, 5),
 ('전문적인 카메라 리뷰', '프로페셔널 카메라를 사용해본 후기를 남깁니다. 사용감과 화질을 평가해보았습니다.', 5, 5);
 
-select * from post;
+
 
 
 INSERT INTO reply (rcontent, mno, pno) VALUES
@@ -230,7 +228,6 @@ INSERT INTO reply (rcontent, mno, pno) VALUES
 ('이 부분이 특히 흥미로웠어요.', 5, 2),
 ('더 많은 자료를 찾을 수 있을까요?', 4, 2);
 
-select * from reply;
 
 
 -- ---------------------- pointlog ---------------------------------- --
@@ -257,8 +254,6 @@ INSERT INTO pointlog (mno, plpoint, plcomment) VALUES (1, 5000, '포인트충전
 INSERT INTO pointlog (mno, plpoint, plcomment) VALUES (1, -6000, '상품구매');
 -- 회원 1이 이벤트 참여로 포인트 적립 (+500)
 INSERT INTO pointlog (mno, plpoint, plcomment) VALUES (1, 500, '이벤트적립');
-
-select * from pointlog;
 -- ---------------------- memberimg ---------------------------------- --
 CREATE TABLE memberimg (
 	mimgno    INT AUTO_INCREMENT,              -- 회원 이미지 번호 (기본키)
@@ -267,8 +262,6 @@ CREATE TABLE memberimg (
 	CONSTRAINT PRIMARY KEY (mimgno),
 	CONSTRAINT FOREIGN KEY (mno) REFERENCES member(mno) ON DELETE CASCADE
 );
-select * from memberimg;
-
 CREATE TABLE payment (
     pno       INT AUTO_INCREMENT PRIMARY KEY,  -- 결제번호
     mno       INT NOT NULL,                    -- 회원번호 (FK)
@@ -276,6 +269,13 @@ CREATE TABLE payment (
     pdate     DATETIME DEFAULT now(),          -- 결제일시
     CONSTRAINT FOREIGN KEY (mno) REFERENCES member(mno) ON DELETE CASCADE
 );
+select * from member;
+select * from product;
+select * from productimg;
+select * from category;
+select * from post;
+select * from reply;
+select * from pointlog;
+select * from memberimg;
 select * from payment;
-
-
+select * from category c join post p on p.cno = c.cno join member m on p.mno = m.mno where p.cno = 1 order by pno desc limit 1 , 5 ;

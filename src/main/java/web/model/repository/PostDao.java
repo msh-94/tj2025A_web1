@@ -6,6 +6,8 @@ import web.model.dto.PostDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PostDao extends Dao{ // class start
@@ -23,12 +25,51 @@ public class PostDao extends Dao{ // class start
             if (count == 1){
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()){
-                    int pno = rs.getInt("pno");
+                    int pno = rs.getInt(1);
                     return pno;
                 }// if end
             }// if end
         } catch (Exception e) { System.out.println(e); }
         return 0;
+    }// func end
+
+    // 카테고리별 게시물 수 조회
+    public int getTotalCount(int cno){
+        try{
+            String sql = "select count(*) from post where cno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,cno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return rs.getInt(1);
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return 0;
+    }// func end
+
+    // 카테고리별 게시물 전체조회
+    public List<PostDto> findAll(int cno , int startRow , int count){
+        List<PostDto> list = new ArrayList<>();
+        try {
+            String sql = "select * from post where cno = ? order by pno desc limit ? , ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,cno);
+            ps.setInt(2,startRow);
+            ps.setInt(3,count);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                PostDto dto = new PostDto();
+                dto.setPno(rs.getInt("pno"));
+                dto.setPtitle(rs.getString("ptitle"));
+                dto.setPcontent(rs.getString("pcontent"));
+                dto.setPdate(rs.getString("pdate"));
+                dto.setPview(rs.getInt("pview"));
+                dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
+                list.add(dto);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
     }// func end
 
 }// class end
