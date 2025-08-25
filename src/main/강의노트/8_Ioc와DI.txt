@@ -24,6 +24,13 @@
             @Autowired
             public 클래스명( 클래스명 매개변수명 ){ this.변수명 = 매개변수명; }
 
+            vs
+
+            @RequiredArgsConstructor
+            public class 클래스명{
+            final 클래스명 변수명;
+            }
+
         3) Setter 를 이용한 주입
             클래스명 변수명;
             @Autowired
