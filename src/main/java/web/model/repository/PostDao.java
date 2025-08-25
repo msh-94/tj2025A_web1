@@ -47,11 +47,17 @@ public class PostDao extends Dao{ // class start
         return 0;
     }// func end
 
+    /**
+     * @param cno
+     * @param startRow
+     * @param count
+     * @return List<PostDto>
+     */
     // 카테고리별 게시물 전체조회
     public List<PostDto> findAll(int cno , int startRow , int count){
         List<PostDto> list = new ArrayList<>();
         try {
-            String sql = "select * from post where cno = ? order by pno desc limit ? , ? ";
+            String sql = "select * from post p join member m on p.mno = m.mno where cno = ? order by pno desc limit ? , ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,cno);
             ps.setInt(2,startRow);
@@ -66,6 +72,7 @@ public class PostDao extends Dao{ // class start
                 dto.setPview(rs.getInt("pview"));
                 dto.setMno(rs.getInt("mno"));
                 dto.setCno(rs.getInt("cno"));
+                dto.setMid(rs.getString("mid"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
