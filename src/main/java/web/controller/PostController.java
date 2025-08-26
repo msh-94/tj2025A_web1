@@ -26,7 +26,9 @@ public class PostController {// class start
     }// func end
 
     // 게시물 전체 조회
-    @GetMapping("") // method : GET , url : localhost:8080/post?cno=1&page=1&count=5
+    @GetMapping("")
+    // 검색이 없을때 : method : GET , url : localhost:8080/post?cno=1&page=1&count=5 , 1번카테고리(뉴스)의 1페이지의 5개 게시물
+    // 검색이 있을때 : method : GET , url : localhost:8080/post?cno=1&page=1&count=5&key=ptitle&keyword=ai , 1번카테고리(뉴스)의 1페이지의 5개 게시물제목 ai포함된 게시물
     public PageDto findAllPost(@RequestParam(defaultValue = "1") int cno ,
                                @RequestParam(defaultValue = "1") int page ,
                                @RequestParam(defaultValue = "5") int count ,

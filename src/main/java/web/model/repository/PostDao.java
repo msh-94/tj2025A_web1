@@ -82,9 +82,15 @@ public class PostDao extends Dao{ // class start
     // 카테고리별 검색 게시물 수 조회
     public int getTotalCountSearch(int cno,String key ,String keyword){
         try{
-            String sql = "select count(*) from post where cno = ? and "+key+" like %"+keyword+"%";
+            String sql = "select count(*) from post where cno = ? ";
+            if ( key.equals("ptitle")){
+                sql += " and ptitle like ? ";
+            }else if (key.equals("pcontent")){
+                sql += " and pcontent like ? ";
+            }// 그외 검색 속성이 존재하면 추가한다
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,cno);
+            ps.setString(2,"%"+keyword+"%");
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 return rs.getInt(1);
@@ -97,11 +103,19 @@ public class PostDao extends Dao{ // class start
     public List<PostDto> findAllSearch(int cno , int startRow , int count , String key , String keyword){
         List<PostDto> list = new ArrayList<>();
         try {
-            String sql = "select * from post p join member m on p.mno = m.mno where cno = ? and "+key+" like %"+keyword+"% order by pno desc limit ? , ? ";
+            String sql = "select * from post p join member m on p.mno = m.mno where cno = ? ";
+            if ( key.equals("ptitle")){
+                sql += " and ptitle like ? ";
+            }else if (key.equals("pcontent")){
+                sql += " and pcontent like ? ";
+            }
+            // 그외 (정렬/페이징)
+            sql += " order by pno desc limit ? , ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,cno);
-            ps.setInt(2,startRow);
-            ps.setInt(3,count);
+            ps.setString(2,"%"+keyword+"%");
+            ps.setInt(3,startRow);
+            ps.setInt(4,count);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 PostDto dto = new PostDto();
