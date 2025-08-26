@@ -29,13 +29,14 @@ public class PostService {// class start
         // 3. 자료 구하기
         int totalCount;
         List<PostDto> postList;
-        if (key == null && key.isEmpty() && keyword == null && keyword.isEmpty()){ // (1) 검색아닐때
-            // 만약에 key와 keyword가 null 이면서 .isEmpty() : 비어있으면 true 반환 함수
-            totalCount = postDao.getTotalCount(cno);
-            postList = postDao.findAll(cno,startRow,count);
-        }else{ // (2) 검색일때
+        if (key != null && !key.isEmpty() && keyword != null && !keyword.isEmpty()){ // (1) 검색일때
+            // 만약에 key와 keyword가 null 아니면서 .isEmpty() : 비어있으면 true 반환 함수 [!부정문]
+            // .(도트/접근)연산자는 변수가 NULL 일때 사용 안된다 (NullPointerException)
             totalCount = postDao.getTotalCountSearch(cno,key,keyword);
             postList = postDao.findAllSearch(cno,startRow,count,key,keyword);
+        }else{ // (2) 검색아닐때
+            totalCount = postDao.getTotalCount(cno);
+            postList = postDao.findAll(cno,startRow,count);
         }// if end
         // 4. 전체 페이지수 구하기
         int totalPage = totalCount%count == 0 ? totalCount/count : totalCount/count+1; // 나머지가 존재하면 +1
