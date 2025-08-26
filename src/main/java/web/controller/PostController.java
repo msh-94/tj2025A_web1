@@ -29,8 +29,11 @@ public class PostController {// class start
     @GetMapping("") // method : GET , url : localhost:8080/post?cno=1&page=1&count=5
     public PageDto findAllPost(@RequestParam(defaultValue = "1") int cno ,
                                @RequestParam(defaultValue = "1") int page ,
-                               @RequestParam(defaultValue = "5") int count){
+                               @RequestParam(defaultValue = "5") int count ,
+                               @RequestParam(required = false) String key ,
+                               @RequestParam(required = false) String keyword){
         // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 없으면 defaultValue 속성으로 기본값 대입 할 수 있다.
+        // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 존재하는 조건이 필수가 아닐때 required = false 속성을 사용한다.
         return postService.findAllPost(cno,page,count);
     }// func end
 

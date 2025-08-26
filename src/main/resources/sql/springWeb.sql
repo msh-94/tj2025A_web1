@@ -278,4 +278,6 @@ select * from reply;
 select * from pointlog;
 select * from memberimg;
 select * from payment;
-select * from category c join post p on p.cno = c.cno join member m on p.mno = m.mno where p.cno = 1 order by pno desc limit 1 , 5 ;
+select * from category c join post p on p.cno = c.cno join member m on p.mno = m.mno where p.cno = 1 order by pno desc limit 0 , 5 ;
+
+
