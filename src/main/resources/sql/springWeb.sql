@@ -279,5 +279,6 @@ select * from pointlog;
 select * from memberimg;
 select * from payment;
 select * from category c join post p on p.cno = c.cno join member m on p.mno = m.mno where p.cno = 1 order by pno desc limit 0 , 5 ;
+select * from post p join member m on p.mno = m.mno where cno = 1  and ptitle like '%ai%' order by pno desc limit 0 , 5; 
 
 
