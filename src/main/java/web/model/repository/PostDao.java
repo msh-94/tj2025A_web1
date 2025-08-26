@@ -79,4 +79,44 @@ public class PostDao extends Dao{ // class start
         return list;
     }// func end
 
+    // 카테고리별 검색 게시물 수 조회
+    public int getTotalCountSearch(int cno,String key ,String keyword){
+        try{
+            String sql = "select count(*) from post where cno = ? and "+key+" like %"+keyword+"%";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,cno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return rs.getInt(1);
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return 0;
+    }// func end
+
+    // 카테고리별 게시물 검색 전체조회
+    public List<PostDto> findAllSearch(int cno , int startRow , int count , String key , String keyword){
+        List<PostDto> list = new ArrayList<>();
+        try {
+            String sql = "select * from post p join member m on p.mno = m.mno where cno = ? and "+key+" like %"+keyword+"% order by pno desc limit ? , ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,cno);
+            ps.setInt(2,startRow);
+            ps.setInt(3,count);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                PostDto dto = new PostDto();
+                dto.setPno(rs.getInt("pno"));
+                dto.setPtitle(rs.getString("ptitle"));
+                dto.setPcontent(rs.getString("pcontent"));
+                dto.setPdate(rs.getString("pdate"));
+                dto.setPview(rs.getInt("pview"));
+                dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
+                dto.setMid(rs.getString("mid"));
+                list.add(dto);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
+
 }// class end

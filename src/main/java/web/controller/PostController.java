@@ -33,8 +33,8 @@ public class PostController {// class start
                                @RequestParam(required = false) String key ,
                                @RequestParam(required = false) String keyword){
         // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 없으면 defaultValue 속성으로 기본값 대입 할 수 있다.
-        // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 존재하는 조건이 필수가 아닐때 required = false 속성을 사용한다.
-        return postService.findAllPost(cno,page,count);
+        // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 존재하는 조건이 필수가 아닐때 required = false 속성을 사용한다.(기본값 true)
+        return postService.findAllPost(cno,page,count, key , keyword);
     }// func end
 
 }// class end
