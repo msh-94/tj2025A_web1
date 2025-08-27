@@ -172,7 +172,7 @@ public class PostDao extends Dao{ // class start
             String sql = "delete from post where pno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,pno);
-            boolean result = ps.execute();
+            boolean result = ps.executeUpdate() == 1;
             return result;
         } catch (Exception e) { System.out.println(e); }
         return false;
@@ -181,11 +181,12 @@ public class PostDao extends Dao{ // class start
     // 게시물 수정
     public int updatePost(PostDto dto){
         try{
-            String sql = "update post set ptitle = ? , pcontent = ? where pno = ?";
+            String sql = "update post set ptitle = ? , pcontent = ? , cno = ? where pno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,dto.getPtitle());
             ps.setString(2,dto.getPcontent());
-            ps.setInt(3,dto.getPno());
+            ps.setInt(3,dto.getCno());
+            ps.setInt(4,dto.getPno());
             int count = ps.executeUpdate();
             if (count == 1) return dto.getPno();
         } catch (Exception e) { System.out.println(e); }
