@@ -133,4 +133,63 @@ public class PostDao extends Dao{ // class start
         return list;
     }// func end
 
+    // 게시물 개별 조회 getPost
+    public PostDto getPost(int pno){
+        try{
+            String sql = "select * from post p join member m on p.mno = m.mno where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                PostDto dto = new PostDto();
+                dto.setPno(rs.getInt("pno"));
+                dto.setPtitle(rs.getString("ptitle"));
+                dto.setPcontent(rs.getString("pcontent"));
+                dto.setPdate(rs.getString("pdate"));
+                dto.setPview(rs.getInt("pview"));
+                dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
+                dto.setMid(rs.getString("mid"));
+                return dto;
+            }// if end
+        } catch (Exception e) { System.out.println(e); }
+        return null;
+    }// func end
+
+    // 게시물 조회수 1증가
+    public void incrementView(int pno){
+        try{
+            String sql = "update post set pview = pview + 1 where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            ps.executeUpdate();
+        } catch (Exception e) { System.out.println(e); }
+    }// func end
+
+    // 게시물 개별 삭제
+    public boolean deletePost(int pno){
+        try{
+            String sql = "delete from post where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            boolean result = ps.execute();
+            return result;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 게시물 수정
+    public int updatePost(PostDto dto){
+        try{
+            String sql = "update post set ptitle = ? , pcontent = ? where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getPtitle());
+            ps.setString(2,dto.getPcontent());
+            ps.setInt(3,dto.getPno());
+            int count = ps.executeUpdate();
+            if (count == 1) return dto.getPno();
+        } catch (Exception e) { System.out.println(e); }
+        return 0;
+    }// func end
+
 }// class end

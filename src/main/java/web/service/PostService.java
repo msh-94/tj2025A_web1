@@ -6,6 +6,8 @@ import web.model.dto.PageDto;
 import web.model.dto.PostDto;
 import web.model.repository.PostDao;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -56,6 +58,29 @@ public class PostService {// class start
         pageDto.setEndBtn(endBtn); // 끝 페이징 번호
         pageDto.setData(postList); // 페이징한 게시물 리스트
         return pageDto; // 반환
+    }// func end
+
+    // 게시물 개별 조회 getPost
+    public PostDto getPost(int pno){
+        PostDto result = postDao.getPost(pno);
+        return result;
+    }// func end
+
+    // 게시물 조회수 1증가
+    public void incrementView(int pno){
+        postDao.incrementView(pno);
+    }// func end
+
+    // 게시물 개별 삭제
+    public boolean deletePost(int pno){
+        boolean result = postDao.deletePost(pno);
+        return result;
+    }// func end
+
+    // 게시물 수정
+    public int updatePost(PostDto dto){
+        int result = postDao.updatePost(dto);
+        return result;
     }// func end
 
 
