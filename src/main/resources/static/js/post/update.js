@@ -4,10 +4,23 @@ console.log('update.js 확인');
 $(document).ready(function() {
   $('#summernote').summernote({
         lang : 'ko-KR' ,   // 썸머노트 메뉴들 한글화
-        minHeight : 300 , // 썸머노트 구역 최소 높이
-        placeholder : '여기에 내용 입력해주세요' // 가이드라인
+        minHeight : 300 , // 썸머노트 구역 최소 높이       
   });
 });
+
+// 기존 게시물 조회하기
+const getPost = async() => {
+    const param = new URL(location.href).searchParams;
+    const pno = param.get('pno');
+    try{
+        const response = await fetch(`/post/view?pno=${pno}`)
+        const data = await response.json();
+        document.querySelector('.cno').value = data.cno;
+        document.querySelector('.ptitle').value = data.ptitle;
+        document.querySelector('.note-editable').innerHTML = data.pcontent;
+    }catch(e){console.log(e);}
+}// func end
+getPost();
 
 // 게시물 수정
 const updatePost = async() => {

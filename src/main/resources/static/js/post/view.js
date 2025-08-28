@@ -76,7 +76,7 @@ const findAllReply = async() =>{
         for(let i = 0; i < data.length; i++){
             let da = data[i];
             html += `작성자 : <span class="mid">${da.mid}</span> 작성일 : <span class="rdate">${da.rdate}</span><br/>
-            내용 : <textarea class="rcontent">${da.rcontent}</textarea><br/>`
+            내용 : <textarea class="rcontent" style="height: 18px; width: 210px;">${da.rcontent}</textarea><br/>`
         }// for end
         reply.innerHTML = html;
     }catch(e){ console.log(e); }
