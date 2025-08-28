@@ -9,6 +9,7 @@ import web.service.PostService;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController // http 요청/응답 자료 매핑 기술
@@ -107,6 +108,24 @@ public class PostController {// class start
             return result;
         }// inf end
         return 0;
+    }// func end
+
+    // 댓글 등록
+    @PostMapping("/reply")
+    public int writeReply(@RequestBody Map<String,String> map , HttpSession session){
+        if (session == null || session.getAttribute("logMno") == null){
+            return 0;
+        }// if end
+        int mno = (int) session.getAttribute("logMno");
+        map.put("mno" , mno+"");
+        int result = postService.writeReply(map);
+        return result;
+    }// func end
+
+    // 댓글 전체 조회
+    @GetMapping("/reply")
+    public List<Map<String,String>> findAllReply(@RequestParam int pno ){
+        return postService.findAllReply(pno);
     }// func end
 
 }// class end

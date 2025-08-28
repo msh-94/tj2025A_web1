@@ -9,6 +9,7 @@ import web.model.repository.PostDao;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor // 룸북제공 : final 변수에 대한 생성자 자동 생성 , @Autowired 생략해도 자동으로 의존성이 처리된다
@@ -81,6 +82,16 @@ public class PostService {// class start
     public int updatePost(PostDto dto){
         int result = postDao.updatePost(dto);
         return result;
+    }// func end
+
+    // 댓글 등록
+    public int writeReply(Map<String,String> map){
+        return postDao.writeReply(map);
+    }// func end
+
+    // 댓글 전체 조회
+    public List<Map<String,String>> findAllReply(int pno ){
+        return postDao.findAllReply(pno);
     }// func end
 
 

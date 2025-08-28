@@ -89,6 +89,7 @@ create table post(
     constraint foreign key ( mno ) references member( mno ) on update cascade on delete cascade ,
    constraint foreign key ( cno ) references category( cno ) on update cascade on delete cascade
 );
+insert into post(ptitle,pcontent,mno,cno) values('테스트','테스트',1,1);
 
 -- 댓글 테이블 [ 댓글번호 , 내용 , 작성일 , 작성자 , 게시물번호 ]
 -- 참조하는 테이블 및 컬럼 이름 변경: board(bno) -> post(pno)

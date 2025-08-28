@@ -33,7 +33,7 @@ const findAllPost = async() => {    console.log('findAll 확인');
         data.data.forEach((post) => {
             html += `<tr>
                         <td>${post.pno}</td>
-                        <td>${post.ptitle}</td>
+                        <td><a href="/post/view.jsp?pno=${post.pno}">${post.ptitle}<a></td>
                         <td>${post.mid}</td>
                         <td>${post.pdate}</td>
                         <td>${post.pview}</td>

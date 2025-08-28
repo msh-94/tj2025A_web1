@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PostDao extends Dao{ // class start
@@ -191,6 +193,45 @@ public class PostDao extends Dao{ // class start
             if (count == 1) return dto.getPno();
         } catch (Exception e) { System.out.println(e); }
         return 0;
+    }// func end
+
+    // 댓글 등록
+    public int writeReply(Map<String,String> map){
+        try{
+            String sql = "insert into reply(rcontent,pno,mno) values(?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,map.get("longtext"));
+            int pno = Integer.parseInt(map.get("pno"));
+            ps.setInt(2,pno);
+            int mno = Integer.parseInt(map.get("mno"));
+            ps.setInt(3,mno);
+            int count = ps.executeUpdate();
+            if (count == 1){
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (Exception e) { System.out.println(e); }
+        return 0;
+    }// func end
+
+    // 댓글 전체 조회
+    public List<Map<String,String>> findAllReply(int pno ){
+        List<Map<String,String>> list = new ArrayList<>();
+        try{
+            String sql = "select * from reply r join member m on r.mno = m.mno where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Map<String,String> map = new HashMap<>();
+                map.put("rcontent",rs.getString("rcontent"));
+                map.put("rdate",rs.getString("rdate"));
+                map.put("rno",rs.getString("rno"));
+                map.put("mid",rs.getString("mid"));
+                list.add(map);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
     }// func end
 
 }// class end
